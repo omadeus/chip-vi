@@ -1,0 +1,37 @@
+{% load static %}
+
+{% block head %}
+    <meta charset="UTF-8">
+    <link rel="stylesheet" href="{% static 'css/main.css' %}">
+    <title>КОНСОЛЬ УПРАВЛЕНИЯ</title>
+    <link href="https://fonts.googleapis.com/css2?family=Open+Sans:wght@400;600&display=swap" rel="stylesheet">
+    <meta name="=viewport" content="width=device-width">
+{% endblock %}
+
+{% block body %}
+   <section class="fullscreen">
+        <form action="/mobileapp/logic_1" class="fullscreenbody">
+            <div class="headermenu">
+                    <ul class="backbutton" style="padding: 0">
+                        <a href="/mobileapp/"><img src="{% static '555.png' %}" /></a>
+                    </ul>
+                    <ul class="homebutton" style="padding: 0">
+                        <a href="/mobileapp/"><img src="{% static  'home.png' %}" /></a>
+                    </ul>
+            </div>
+            <div class="centerfoto">
+                <div class="fotoframe">
+                    <img src="{% static '123.png' %}?{{ tom }}" alt="ops image">
+                </div>
+            </div>
+            <div class="fotobutton">
+                <div class="fotobuttonframe">
+                    <form>
+
+                        <input type="submit" name="start" class="btn btn-success" value="ПРОДОЛЖИТЬ">
+                    </form>
+                </div>
+            </div>
+        </form>
+   </section>
+{% endblock %}

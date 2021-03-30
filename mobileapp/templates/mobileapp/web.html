@@ -1,0 +1,443 @@
+{% load static %}
+{% load i18n %}
+<!DOCTYPE html>
+<html lang="ru">
+
+<head>
+  <meta charset="utf-8">
+  <meta content="width=device-width, initial-scale=1.0" name="viewport">
+
+  <title>Chip-vi</title>
+  <meta content="" name="description">
+  <meta content="" name="keywords">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <!-- Favicons -->
+  <link href="{% static 'assets/img/favicon.png' %}" rel="icon">
+  <link href="{% static 'assets/img/apple-touch-icon.png' %}" rel="apple-touch-icon">
+  <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.1/css/bootstrap.min.css">
+  <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
+  <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.1/js/bootstrap.min.js"></script>
+  <!-- Google Fonts -->
+  <link href="https://fonts.googleapis.com/css?family=Roboto:300,300i,400,400i,500,500i,600,600i,700,700i|Poppins:300,300i,400,400i,500,500i,600,600i,700,700i" rel="stylesheet">
+  <link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet">
+
+  <!-- Vendor CSS Files -->
+  <link href="{% static 'assets/vendor/aos/aos.css' %}" rel="stylesheet">
+  <link href="{% static 'assets/vendor/bootstrap/css/bootstrap.min.css' %}" rel="stylesheet">
+  <link href="{% static 'assets/vendor/boxicons/css/boxicons.min.css' %}" rel="stylesheet">
+  <link href="{% static 'assets/vendor/swiper/swiper-bundle.min.css' %}" rel="stylesheet">
+
+  <!-- Template Main CSS File -->
+  <link href="{% static 'assets/css/style.css' %}" rel="stylesheet">
+        <link rel="stylesheet" type="text/css" href="{% static 'mainstyle.css' %}">
+        <script src="{% static 'jstut7-2.js' %}"></script>
+  <script>
+    var csrftoken = '{{ csrf_token }}';
+  </script>
+  <!-- =======================================================
+  * Template Name: SoftLand - v4.0.1
+  * Template URL: https://bootstrapmade.com/softland-bootstrap-app-landing-page-template/
+  * Author: BootstrapMade.com
+  * License: https://bootstrapmade.com/license/
+  ======================================================== -->
+</head>
+
+<body>
+
+  <!-- ======= Header ======= -->
+  <header id="header" class="fixed-top d-flex align-items-center">
+    <div class="container d-flex justify-content-between align-items-center">
+
+      <div class="logo">
+        <h1><a href="/mobileapp/website">Chip-vi</a></h1>
+        <!-- Uncomment below if you prefer to use an image logo -->
+        <!-- <a href="index.html"><img src="{% static 'assets/img/logo.png" alt="" class="img-fluid"></a>-->
+      </div>
+
+      <nav id="navbar" class="navbar">
+        <ul>
+          <li class="dropdown"><a href="#"><i class="material-icons" style="font-size:25px">public</i><i class="bi bi-chevron-down"></i></a>
+            <ul>
+                {% get_current_language as LANGUAGE_CODE %}
+                {% get_available_languages as LANGUAGES %}
+                {% get_language_info_list for LANGUAGES as languages %}
+
+                {% for lang in languages %}
+                    <li>
+                    <a class="dropdown-item" href="/{{ lang.code }}/mobileapp/website">
+                        {{ lang.name_local }}
+                    </a>
+                    </li>
+                {% endfor %}
+            </ul>
+          </li>
+        {% if request.user.is_authenticated %}
+            {{ user.username }} | <a href="/mobileapp/logout">{% translate 'Выход' %}</a>
+        {% else %}
+          <li><a href="{% url 'login' %}">{% translate 'Войти' %}</a></li>
+          <li><a href="{% url 'register' %}">{% translate 'Регистрация' %}</a></li>
+        {% endif %}
+        </ul>
+        <i class="bi bi-list mobile-nav-toggle"></i>
+      </nav><!-- .navbar -->
+
+    </div>
+  </header><!-- End Header -->
+
+  <!-- ======= Hero Section ======= -->
+  <section class="hero-section" id="hero">
+
+    <div class="wave">
+
+      <svg width="100%" height="355px" viewBox="0 0 1920 355" version="1.1" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink">
+        <g id="Page-1" stroke="none" stroke-width="1" fill="none" fill-rule="evenodd">
+          <g id="Apple-TV" transform="translate(0.000000, -402.000000)" fill="#FFFFFF">
+            <path d="M0,439.134243 C175.04074,464.89273 327.944386,477.771974 458.710937,477.771974 C654.860765,477.771974 870.645295,442.632362 1205.9828,410.192501 C1429.54114,388.565926 1667.54687,411.092417 1920,477.771974 L1920,757 L1017.15166,757 L0,757 L0,439.134243 Z" id="Path"></path>
+          </g>
+        </g>
+      </svg>
+
+    </div>
+
+    <div class="container">
+      <div class="row align-items-center">
+        <div class="col-12 hero-text-image">
+          <form class="row" method="post" enctype="multipart/form-data">
+
+            <div class="wrapper">
+
+            <div class="toolbar">
+
+                <a class="selected" href="#" id="open" onclick="OpenImage() "><img src="{% static 'icons/open-icon.png' %}"></a>
+                <a href="#" id="save" onclick="SaveImage()"><img src="{% static 'icons/save-icon.png' %}"></a>
+                <a href="#" id="rectangle_1" onclick="f1('red'); ChangeTool('rectangle_1')"><img src="{% static 'icons/rectangle-icon-red.png' %}"></a>
+                <a href="#" id="line" onclick="f1('orange'); ChangeTool('line')"><img src="{% static 'icons/rectangle-icon-orange.png' %}"></a>
+                <a href="#" id="rectangle" onclick="f1('yellow'); ChangeTool('rectangle')"><img src="{% static 'icons/rectangle-icon-yellow.png' %}"></a>
+                <a href="#" id="circle" onclick="f1('green'); ChangeTool('circle')"><img src="{% static 'icons/rectangle-icon-green.png' %}"></a>
+                <a href="#" id="ellipse" onclick="f1('blue'); ChangeTool('ellipse')"><img src="{% static 'icons/rectangle-icon-blue.png' %}"></a>
+                <a href="#" id="polygon" onclick="f1('indigo'); ChangeTool('polygon')"><img src="{% static 'icons/rectangle-icon-indigo.png' %}"></a>
+                <a href="#" id="violet" onclick="f1('violet'); ChangeTool('violet')"><img src="{% static 'icons/rectangle-icon-violet.png' %}"></a>
+            </div><br>
+                <canvas id="my-canvas" width="600" height="350"></canvas>
+            <div id="img-data-div">
+                <input type="file" id="input_file" onchange='loadImage();' style="display:none;">
+            </div>
+            </div>
+            <div class="forms" id="forms" enctype="multipart/form-data">
+                <input type="file" id="file-input" name="file">
+                <button type="submit" id="submit"></button>
+                {% csrf_token %}
+                  <form id="motherboerd_inputs">
+
+                      <div class="input-group input-group-sm mb-3">
+
+                          <input type="text" class="form-control" id="mother_1" placeholder="{% translate 'Наименование платы' %}" size="20">
+                      </div>
+                      <div class="input-group input-group-sm mb-3" >
+
+                          <input type="text" class="form-control" id="mother_2" placeholder="{% translate 'Марка платы' %}">
+                      </div>
+                      <div class="input-group input-group-sm mb-3">
+
+                          <input type="text" class="form-control" id="mother_3" placeholder="{% translate 'Тип платы' %}" aria-describedby="inputGroup-sizing-default">
+                      </div>
+                      <div class="input-group input-group-sm mb-3">
+
+                          <input type="text" class="form-control" id="mother_4" placeholder="{% translate 'Производитель платы' %}" aria-describedby="inputGroup-sizing-sm">
+                      </div>
+                      <div class="input-group input-group-sm mb-3">
+
+                          <input type="text" class="form-control" id="mother_5" placeholder="{% translate 'Документация платы' %}" aria-describedby="inputGroup-sizing-sm">
+                      </div>
+                      <div class="input-group input-group-sm mb-3">
+
+                          <input type="text" class="form-control" id="mother_6" placeholder="{% translate 'Состояние платы' %}" aria-describedby="inputGroup-sizing-sm">
+                      </div>
+                  </form>
+              <form id="red_inputs">
+                <div class="input-group input-group-sm mb-3">
+
+                    <input type="red" class="form-control" id="red_1" placeholder="{% translate 'Тип элемента' %}" aria-describedby="inputGroup-sizing-sm">
+                </div>
+                <div class="input-group input-group-sm mb-3">
+
+                    <input type="red" class="form-control" id="red_2" placeholder="{% translate 'Марка элемента' %}" aria-describedby="inputGroup-sizing-sm">
+                </div>
+                <div class="input-group input-group-sm mb-3">
+
+                    <input type="red" class="form-control" id="red_3" placeholder="{% translate 'Обозначение элемента' %}" aria-describedby="inputGroup-sizing-sm">
+                </div>
+                <div class="input-group input-group-sm mb-3">
+
+                    <input type="red" class="form-control" id="red_8" placeholder="{% translate 'Номинал элемента' %}" aria-describedby="inputGroup-sizing-sm">
+                </div>
+                <div class="input-group input-group-sm mb-3">
+
+                    <input type="red" class="form-control" id="red_4" placeholder="{% translate 'Работоспособность элемента' %}" aria-describedby="inputGroup-sizing-sm">
+                </div>
+                <div class="input-group input-group-sm mb-3">
+
+                    <input type="red" class="form-control" id="red_5" placeholder="{% translate 'Производитель элемента' %}" aria-describedby="inputGroup-sizing-sm">
+                </div>
+                <div class="input-group input-group-sm mb-3">
+
+                    <input type="red" class="form-control" id="red_6" placeholder="{% translate 'Документация элемента' %}" aria-describedby="inputGroup-sizing-sm">
+                </div>
+                <div class="input-group input-group-sm mb-3">
+
+                    <input type="red" class="form-control" id="red_7" placeholder="{% translate 'Состояние элемента' %}" aria-describedby="inputGroup-sizing-sm">
+                </div>
+
+              </form>
+
+              <!==================================>
+              <div id="orange_inputs">
+                <div class="input-group input-group-sm mb-3">
+
+                    <input type="orange" class="form-control" id="orange_1" placeholder="{% translate 'Тип элемента' %}" aria-describedby="inputGroup-sizing-sm">
+                </div>
+                <div class="input-group input-group-sm mb-3">
+
+                    <input type="orange" class="form-control" id="orange_2" placeholder="{% translate 'Марка элемента' %}" aria-describedby="inputGroup-sizing-sm">
+                </div>
+                <div class="input-group input-group-sm mb-3">
+
+                    <input type="orange" class="form-control" id="orange_3" placeholder="{% translate 'Обозначение элемента' %}" aria-describedby="inputGroup-sizing-sm">
+                </div>
+                <div class="input-group input-group-sm mb-3">
+
+                    <input type="orange" class="form-control" id="orange_8" placeholder="{% translate 'Номинал элемента' %}" aria-describedby="inputGroup-sizing-sm">
+                </div>
+                <div class="input-group input-group-sm mb-3">
+
+                    <input type="orange" class="form-control" id="orange_4" placeholder="{% translate 'Работоспособность элемента' %}" aria-describedby="inputGroup-sizing-sm">
+                </div>
+                <div class="input-group input-group-sm mb-3">
+
+                    <input type="orange" class="form-control" id="orange_5" placeholder="{% translate 'Производитель элемента' %}" aria-describedby="inputGroup-sizing-sm">
+                </div>
+                <div class="input-group input-group-sm mb-3">
+
+                    <input type="orange" class="form-control" id="orange_6" placeholder="{% translate 'Документация элемента' %}" aria-describedby="inputGroup-sizing-sm">
+                </div>
+                <div class="input-group input-group-sm mb-3">
+
+                    <input type="orange" class="form-control" id="orange_7" placeholder="{% translate 'Состояние элемента' %}" aria-describedby="inputGroup-sizing-sm">
+                </div>
+
+              </div>
+              <!==================================>
+              <div id="yellow_inputs">
+                <div class="input-group input-group-sm mb-3">
+
+                    <input type="yellow" class="form-control" id="yellow_1" placeholder="{% translate 'Тип элемента' %}" aria-describedby="inputGroup-sizing-sm">
+                </div>
+                <div class="input-group input-group-sm mb-3">
+
+                    <input type="yellow" class="form-control" id="yellow_2" placeholder="{% translate 'Марка элемента' %}" aria-describedby="inputGroup-sizing-sm">
+                </div>
+                <div class="input-group input-group-sm mb-3">
+
+                    <input type="yellow" class="form-control" id="yellow_3" placeholder="{% translate 'Обозначение элемента' %}" aria-describedby="inputGroup-sizing-sm">
+                </div>
+                <div class="input-group input-group-sm mb-3">
+
+                    <input type="yellow" class="form-control" id="yellow_8" placeholder="{% translate 'Номинал элемента' %}" aria-describedby="inputGroup-sizing-sm">
+                </div>
+                <div class="input-group input-group-sm mb-3">
+
+                    <input type="yellow" class="form-control" id="yellow_4" placeholder="{% translate 'Работоспособность элемента' %}" aria-describedby="inputGroup-sizing-sm">
+                </div>
+                <div class="input-group input-group-sm mb-3">
+
+                    <input type="yellow" class="form-control" id="yellow_5" placeholder="{% translate 'Производитель элемента' %}" aria-describedby="inputGroup-sizing-sm">
+                </div>
+                <div class="input-group input-group-sm mb-3">
+
+                    <input type="yellow" class="form-control" id="yellow_6" placeholder="{% translate 'Документация элемента' %}" aria-describedby="inputGroup-sizing-sm">
+                </div>
+                <div class="input-group input-group-sm mb-3">
+
+                    <input type="yellow" class="form-control" id="yellow_7" placeholder="{% translate 'Состояние элемента' %}" aria-describedby="inputGroup-sizing-sm">
+                </div>
+
+              </div>
+              <!==================================>
+              <div id="green_inputs">
+                <div class="input-group input-group-sm mb-3">
+
+                    <input type="green" class="form-control" id="green_1" placeholder="{% translate 'Тип элемента' %}" aria-describedby="inputGroup-sizing-sm">
+                </div>
+                <div class="input-group input-group-sm mb-3">
+
+                    <input type="green" class="form-control" id="green_2" placeholder="{% translate 'Марка элемента' %}" aria-describedby="inputGroup-sizing-sm">
+                </div>
+                <div class="input-group input-group-sm mb-3">
+
+                    <input type="green" class="form-control" id="green_3" placeholder="{% translate 'Обозначение элемента' %}" aria-describedby="inputGroup-sizing-sm">
+                </div>
+                <div class="input-group input-group-sm mb-3">
+
+                    <input type="green" class="form-control" id="green_8" placeholder="{% translate 'Номинал элемента' %}" aria-describedby="inputGroup-sizing-sm">
+                </div>
+                <div class="input-group input-group-sm mb-3">
+
+                    <input type="green" class="form-control" id="green_4" placeholder="{% translate 'Работоспособность элемента' %}" aria-describedby="inputGroup-sizing-sm">
+                </div>
+                <div class="input-group input-group-sm mb-3">
+
+                    <input type="green" class="form-control" id="green_5" placeholder="{% translate 'Производитель элемента' %}" aria-describedby="inputGroup-sizing-sm">
+                </div>
+                <div class="input-group input-group-sm mb-3">
+
+                    <input type="green" class="form-control" id="green_6" placeholder="{% translate 'Документация элемента' %}" aria-describedby="inputGroup-sizing-sm">
+                </div>
+                <div class="input-group input-group-sm mb-3">
+
+                    <input type="green" class="form-control" id="green_7" placeholder="{% translate 'Состояние элемента' %}" aria-describedby="inputGroup-sizing-sm">
+                </div>
+
+              </div>
+              <!==================================>
+              <div id="blue_inputs">
+                <div class="input-group input-group-sm mb-3">
+
+                    <input type="blue" class="form-control" id="blue_1" placeholder="{% translate 'Тип элемента' %}" aria-describedby="inputGroup-sizing-sm">
+                </div>
+                <div class="input-group input-group-sm mb-3">
+
+                    <input type="blue" class="form-control" id="blue_2" placeholder="{% translate 'Марка элемента' %}" aria-describedby="inputGroup-sizing-sm">
+                </div>
+                <div class="input-group input-group-sm mb-3">
+
+                    <input type="blue" class="form-control" id="blue_3" placeholder="{% translate 'Обозначение элемента' %}" aria-describedby="inputGroup-sizing-sm">
+                </div>
+                <div class="input-group input-group-sm mb-3">
+
+                    <input type="blue" class="form-control" id="blue_8" placeholder="{% translate 'Номинал элемента' %}" aria-describedby="inputGroup-sizing-sm">
+                </div>
+                <div class="input-group input-group-sm mb-3">
+
+                    <input type="blue" class="form-control" id="blue_4" placeholder="{% translate 'Работоспособность элемента' %}" aria-describedby="inputGroup-sizing-sm">
+                </div>
+                <div class="input-group input-group-sm mb-3">
+
+                    <input type="blue" class="form-control" id="blue_5" placeholder="{% translate 'Производитель элемента' %}" aria-describedby="inputGroup-sizing-sm">
+                </div>
+                <div class="input-group input-group-sm mb-3">
+
+                    <input type="blue" class="form-control" id="blue_6" placeholder="{% translate 'Документация элемента' %}" aria-describedby="inputGroup-sizing-sm">
+                </div>
+                <div class="input-group input-group-sm mb-3">
+
+                    <input type="blue" class="form-control" id="blue_7" placeholder="{% translate 'Состояние элемента' %}" aria-describedby="inputGroup-sizing-sm">
+                </div>
+
+              </div>  
+              <!==================================>
+              <div id="indigo_inputs">
+                <div class="input-group input-group-sm mb-3">
+
+                    <input type="indigo" class="form-control" id="indigo_1" placeholder="{% translate 'Тип элемента' %}" aria-describedby="inputGroup-sizing-sm">
+                </div>
+                <div class="input-group input-group-sm mb-3">
+
+                    <input type="indigo" class="form-control" id="indigo_2" placeholder="{% translate 'Марка элемента' %}" aria-describedby="inputGroup-sizing-sm">
+                </div>
+                <div class="input-group input-group-sm mb-3">
+
+                    <input type="indigo" class="form-control" id="indigo_3" placeholder="{% translate 'Обозначение элемента' %}" aria-describedby="inputGroup-sizing-sm">
+                </div>
+                <div class="input-group input-group-sm mb-3">
+
+                    <input type="indigo" class="form-control" id="indigo_8" placeholder="{% translate 'Номинал элемента' %}" aria-describedby="inputGroup-sizing-sm">
+                </div>
+                <div class="input-group input-group-sm mb-3">
+
+                    <input type="indigo" class="form-control" id="indigo_4" placeholder="{% translate 'Работоспособность элемента' %}" aria-describedby="inputGroup-sizing-sm">
+                </div>
+                <div class="input-group input-group-sm mb-3">
+
+                    <input type="indigo" class="form-control" id="indigo_5" placeholder="{% translate 'Производитель элемента' %}" aria-describedby="inputGroup-sizing-sm">
+                </div>
+                <div class="input-group input-group-sm mb-3">
+
+                    <input type="indigo" class="form-control" id="indigo_6" placeholder="{% translate 'Документация элемента' %}" aria-describedby="inputGroup-sizing-sm">
+                </div>
+                <div class="input-group input-group-sm mb-3">
+
+                    <input type="indigo" class="form-control" id="indigo_7" placeholder="{% translate 'Состояние элемента' %}" aria-describedby="inputGroup-sizing-sm">
+                </div>
+
+              </div> 
+              <!==================================>
+              <div id="violet_inputs">
+                <div class="input-group input-group-sm mb-3">
+
+                    <input type="violet" class="form-control" id="violet_1" placeholder="{% translate 'Тип элемента' %}" aria-describedby="inputGroup-sizing-sm">
+                </div>
+                <div class="input-group input-group-sm mb-3">
+
+                    <input type="violet" class="form-control" id="violet_2" placeholder="{% translate 'Марка элемента' %}" aria-describedby="inputGroup-sizing-sm">
+                </div>
+                <div class="input-group input-group-sm mb-3">
+
+                    <input type="violet" class="form-control" id="violet_3" placeholder="{% translate 'Обозначение элемента' %}" aria-describedby="inputGroup-sizing-sm">
+                </div>
+                <div class="input-group input-group-sm mb-3">
+
+                    <input type="violet" class="form-control" id="violet_8" placeholder="{% translate 'Номинал элемента' %}" aria-describedby="inputGroup-sizing-sm">
+                </div>
+                <div class="input-group input-group-sm mb-3">
+
+                    <input type="violet" class="form-control" id="violet_4" placeholder="{% translate 'Работоспособность элемента' %}" aria-describedby="inputGroup-sizing-sm">
+                </div>
+                <div class="input-group input-group-sm mb-3">
+
+                    <input type="violet" class="form-control" id="violet_5" placeholder="{% translate 'Производитель элемента' %}" aria-describedby="inputGroup-sizing-sm">
+                </div>
+                <div class="input-group input-group-sm mb-3">
+
+                    <input type="violet" class="form-control" id="violet_6" placeholder="{% translate 'Документация элемента' %}" aria-describedby="inputGroup-sizing-sm">
+                </div>
+                <div class="input-group input-group-sm mb-3">
+
+                    <input type="violet" class="form-control" id="violet_7" placeholder="{% translate 'Состояние элемента' %}" aria-describedby="inputGroup-sizing-sm">
+                </div>
+
+              </div>  
+
+
+
+
+            </div>
+
+          </form>
+            <br>
+
+
+
+          </div>
+        </div>
+      </div>
+    </div>
+
+
+
+  </section><!-- End Hero -->
+
+
+
+
+  <!-- Vendor JS Files -->
+  <script src="{% static 'assets/vendor/aos/aos.js' %}"></script>
+  <script src="{% static 'assets/vendor/bootstrap/js/bootstrap.bundle.min.js' %}"></script>
+  <script src="{% static 'assets/vendor/php-email-form/validate.js' %}"></script>
+  <script src="{% static 'assets/vendor/swiper/swiper-bundle.min.js' %}"></script>
+
+  <!-- Template Main JS File -->
+  <script src="{% static 'assets/js/main.js' %}"></script>
+
+</body>
+
+</html>
